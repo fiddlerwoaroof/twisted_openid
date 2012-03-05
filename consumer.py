@@ -30,6 +30,8 @@ import collections
 
 ################### Customization hooks
 class EventHandler(object):
+	external_port = None
+
 	@property
 	def store(self):
 		self.__class__.store= MongoDBStore()
@@ -297,7 +299,10 @@ class OpenIDResource(Resource):
 	def buildURL(self, txrequest, action, **query):
 		"""Build a URL relative to the server base_url, with the given
 		query parameters added."""
-		base = urlparse.urljoin(txrequest.prePathURL()+'/', action)
+		url = urlparse.urlparse(txrequest.prePathURL()+'/')
+		if self.eventhandler.external_port:
+			url.port = self.eventhandler.external_port
+		base = urlparse.urljoin(url.geturl(), action)
 		print 'buildURL',base
 		return appendArgs(base, query)
 
