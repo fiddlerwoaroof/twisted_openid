@@ -327,7 +327,7 @@ class OpenIDResource(Resource):
 			base = url.geturl()
 
 		if action:
-			base = urlparse.urljoin(url.geturl(), action)
+			base = urlparse.urljoin(base, action)
 		print 'buildURL', base
 		return appendArgs(base, query)
 
