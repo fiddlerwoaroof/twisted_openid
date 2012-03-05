@@ -11,7 +11,6 @@ __copyright__ = 'Copyright 2012, Edward Langley'
 import imp, os.path
 import cgi
 import urlparse
-import cgitb
 from twisted.web.resource import Resource
 import sys
 
@@ -142,11 +141,10 @@ class OpenIDResource(Resource):
 
 		except (KeyboardInterrupt, SystemExit):
 				raise
-		except:
+		finally:
 				txrequest.setResponseCode(500)
 				txrequest.setHeader('Content-type', 'text/html')
 				txrequest.getSession()
-				return cgitb.html(sys.exc_info(), context=10)
 		return ''
 
 	def doVerify(self, txrequest):
