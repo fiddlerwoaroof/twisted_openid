@@ -178,8 +178,8 @@ class OpenIDResource(Resource):
 					self.renderPage(txrequest, msg, css_class='error', form_contents=openid_url)
 				else:
 					trust_root = 'http://%s' % self.eventhandler.url
-					if self.eventhandler.port and self.eventhandler.port != 80:
-						trust_root += ':%s' % self.eventhandler.port
+					if self.eventhandler.external_port and self.eventhandler.external_port != 80:
+						trust_root += ':%s' % self.eventhandler.external_port
 					return_to = self.buildURL(txrequest, 'process')
 
 					if request.shouldSendRedirect():
