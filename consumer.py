@@ -299,9 +299,19 @@ class OpenIDResource(Resource):
 	def buildURL(self, txrequest, action, **query):
 		"""Build a URL relative to the server base_url, with the given
 		query parameters added."""
-		url = urlparse.urlparse(txrequest.prePathURL()+'/')
-		if self.eventhandler.external_port:
-			url.port = self.eventhandler.external_port
+		a  = urlparse.urlparse(txrequest.prePathURL()+'/')
+
+		url = urlparse.SplitResult(
+			a.scheme,
+			'%s:%s@%s:%s' % (
+				a.username,
+				a.password,
+				a.hostname,
+				self.eventhandler.external_port or a.port),
+			a.path,
+			a.query,
+			a.fragment).geturl()
+
 		base = urlparse.urljoin(url.geturl(), action)
 		print 'buildURL', base
 		return appendArgs(base, query)
