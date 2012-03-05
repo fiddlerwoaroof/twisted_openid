@@ -176,7 +176,7 @@ class OpenIDResource(Resource):
 						cgi.escape(openid_url),)
 					self.renderPage(txrequest, msg, css_class='error', form_contents=openid_url)
 				else:
-					trust_root = txrequest.prePathURL()
+					trust_root = self.buildURL()
 					return_to = self.buildURL(txrequest, 'process')
 
 					if request.shouldSendRedirect():
@@ -296,7 +296,7 @@ class OpenIDResource(Resource):
 
 				txrequest.write('</ul></div>')
 
-	def buildURL(self, txrequest, action, **query):
+	def buildURL(self, txrequest, action='', **query):
 		"""Build a URL relative to the server base_url, with the given
 		query parameters added."""
 		a  = urlparse.urlparse(txrequest.prePathURL()+'/')
@@ -312,7 +312,9 @@ class OpenIDResource(Resource):
 			a.query,
 			a.fragment)
 
-		base = urlparse.urljoin(url.geturl(), action)
+		base = url.geturl()
+		if action:
+			base = urlparse.urljoin(url.geturl(), action)
 		print 'buildURL', base
 		return appendArgs(base, query)
 
