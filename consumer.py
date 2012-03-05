@@ -301,13 +301,22 @@ class OpenIDResource(Resource):
 		query parameters added."""
 		a  = urlparse.urlparse(txrequest.prePathURL()+'/')
 
+		port = a.port
+		if self.eventhandler.external_port:
+			port = self.eventhandler.external_port
+		if port == 80:
+			port = ''
+		else:
+			port = ':%s' % port
+
 		url = urlparse.SplitResult(
 			a.scheme,
-			'%s:%s@%s:%s' % (
+			'%s:%s@%s%s' % (
 				a.username,
 				a.password,
 				a.hostname,
-				self.eventhandler.external_port or a.port),
+				port
+			),
 			a.path,
 			a.query,
 			a.fragment)
