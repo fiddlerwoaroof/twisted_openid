@@ -31,6 +31,7 @@ import collections
 ################### Customization hooks
 class EventHandler(object):
 	external_port = None
+	url = None
 
 	@property
 	def store(self):
@@ -299,29 +300,32 @@ class OpenIDResource(Resource):
 	def buildURL(self, txrequest, action='', **query):
 		"""Build a URL relative to the server base_url, with the given
 		query parameters added."""
-		a  = urlparse.urlparse(txrequest.prePathURL()+'/')
+		base = self.eventhandler.url
+		if not base:
+			a  = urlparse.urlparse(txrequest.prePathURL()+'/')
 
-		port = a.port
-		if self.eventhandler.external_port:
-			port = self.eventhandler.external_port
-		if port == 80:
-			port = ''
-		else:
-			port = ':%s' % port
+			port = a.port
+			if self.eventhandler.external_port:
+				port = self.eventhandler.external_port
+			if port == 80:
+				port = ''
+			else:
+				port = ':%s' % port
 
-		url = urlparse.SplitResult(
-			a.scheme,
-			'%s:%s@%s%s' % (
-				a.username,
-				a.password,
-				a.hostname,
-				port
-			),
-			a.path,
-			a.query,
-			a.fragment)
+			url = urlparse.SplitResult(
+				a.scheme,
+				'%s:%s@%s%s' % (
+					a.username,
+					a.password,
+					a.hostname,
+					port
+				),
+				a.path,
+				a.query,
+				a.fragment)
 
-		base = url.geturl()
+			base = url.geturl()
+
 		if action:
 			base = urlparse.urljoin(url.geturl(), action)
 		print 'buildURL', base
