@@ -303,7 +303,7 @@ class OpenIDResource(Resource):
 		if self.eventhandler.external_port:
 			url.port = self.eventhandler.external_port
 		base = urlparse.urljoin(url.geturl(), action)
-		print 'buildURL',base
+		print 'buildURL', base
 		return appendArgs(base, query)
 
 	def notFound(self):
