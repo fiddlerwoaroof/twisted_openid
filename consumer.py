@@ -310,7 +310,7 @@ class OpenIDResource(Resource):
 				self.eventhandler.external_port or a.port),
 			a.path,
 			a.query,
-			a.fragment).geturl()
+			a.fragment)
 
 		base = urlparse.urljoin(url.geturl(), action)
 		print 'buildURL', base
