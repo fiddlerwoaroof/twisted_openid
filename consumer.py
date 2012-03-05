@@ -177,7 +177,9 @@ class OpenIDResource(Resource):
 						cgi.escape(openid_url),)
 					self.renderPage(txrequest, msg, css_class='error', form_contents=openid_url)
 				else:
-					trust_root = self.buildURL(txrequest)
+					trust_root = 'http://%s' % self.eventhandler.url
+					if self.eventhandler.port and self.eventhandler.port != 80:
+						trust_root += ':%s' % self.eventhandler.port
 					return_to = self.buildURL(txrequest, 'process')
 
 					if request.shouldSendRedirect():
