@@ -30,7 +30,10 @@ import collections
 
 ################### Customization hooks
 class EventHandler(object):
-	store = MongoDBStore()
+	@property
+	def store(self):
+		self.__class__.store= MongoDBStore()
+		return self.store
 
 	def __init__(self, resource):
 		self.resource = resource
