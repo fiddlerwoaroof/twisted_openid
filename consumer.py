@@ -300,7 +300,7 @@ class OpenIDResource(Resource):
 	def buildURL(self, txrequest, action='', **query):
 		"""Build a URL relative to the server base_url, with the given
 		query parameters added."""
-		base = '/%s/%s/' % (self.eventhandler.url, '/'.join(txrequest.prepath))
+		base = '//%s/%s/' % (self.eventhandler.url, '/'.join(txrequest.prepath))
 		if not base:
 			a  = urlparse.urlparse(txrequest.prePathURL()+'/')
 
