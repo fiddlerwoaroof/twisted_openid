@@ -331,7 +331,7 @@ class OpenIDResource(Resource):
 		print 'buildURL', base
 		return appendArgs(base, query)
 
-	def notFound(self):
+	def notFound(self, txrequest):
 		"""Render a page with a 404 return code and a message."""
 		fmt = 'The path <q>%s</q> was not understood by this server.'
 		msg = fmt % (self.path,)
