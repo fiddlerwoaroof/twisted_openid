@@ -1,11 +1,4 @@
 #!/usr/bin/env python
-"""
-Simple example for an OpenID consumer.
-
-Once you understand this example you'll know the basics of OpenID
-and using the Python OpenID library. You can then move on to more
-robust examples, and integrating OpenID into your application.
-"""
 __copyright__ = 'Copyright 2012, Edward Langley'
 
 import imp, os.path
