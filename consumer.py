@@ -135,7 +135,7 @@ class OpenIDResource(Resource):
 		except (KeyboardInterrupt, SystemExit):
 				raise
 		finally:
-				txrequest.setResponseCode(200)
+				txrequest.setResponseCode(500)
 				txrequest.setHeader('Content-type', 'text/html')
 				txrequest.getSession()
 		return ''
@@ -240,6 +240,7 @@ class OpenIDResource(Resource):
 		else:
 			self.renderPage(txrequest, message, display_identifier,
 						sreg_data=sreg_resp, pape_data=pape_resp)
+		print 'process done!'
 
 #### Untested !!!
 #	def doAffiliate(self):
