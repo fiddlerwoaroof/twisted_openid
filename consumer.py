@@ -135,7 +135,7 @@ class OpenIDResource(Resource):
 		except (KeyboardInterrupt, SystemExit):
 				raise
 		finally:
-				txrequest.setResponseCode(500)
+				txrequest.setResponseCode(200)
 				txrequest.setHeader('Content-type', 'text/html')
 				txrequest.getSession()
 		return ''
