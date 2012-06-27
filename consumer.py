@@ -183,6 +183,7 @@ class OpenIDResource(Resource):
 								immediate=immediate)
 
 						txrequest.write(form_html)
+		print 'verify done!'
 
 	def requestRegistrationData(self, request):
 		sreg_request = sreg.SRegRequest(
